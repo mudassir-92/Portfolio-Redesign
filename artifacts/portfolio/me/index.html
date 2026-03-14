@@ -503,11 +503,46 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        gsap.registerPlugin(ScrollTrigger);
+
         (function() {
+            // Intersection observer for reveal animations
             const obs = new IntersectionObserver(entries => {
                 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
             }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+            // Nav hide/show on scroll
+            let lastScroll = 0;
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                const scroll = window.scrollY;
+                if (scroll > 100) {
+                    if (scroll > lastScroll) nav.style.transform = 'translateY(-100%)';
+                    else nav.style.transform = 'translateY(0)';
+                }
+                lastScroll = scroll;
+            });
+
+            // Smooth Lenis scroll
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // Service card tech toggle
+            document.querySelectorAll('.svc-tech-toggle').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.currentTarget.closest('.svc').classList.toggle('open');
+                });
+            });
+
+            // Hero animation on load
+            gsap.from('.hero-left > *', { duration: 0.8, y: 24, opacity: 0, stagger: 0.1, ease: 'power3.out' });
+            gsap.from('.hero-right', { duration: 0.8, x: 32, opacity: 0, delay: 0.2, ease: 'power3.out' });
         })();
     </script>
 </body>
