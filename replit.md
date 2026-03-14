@@ -21,7 +21,8 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 ```text
 artifacts-monorepo/
 ├── artifacts/              # Deployable applications
-│   └── api-server/         # Express API server
+│   ├── api-server/         # Express API server
+│   └── portfolio/          # Mudassir Ashraf client portfolio (React+Vite)
 ├── lib/                    # Shared libraries
 │   ├── api-spec/           # OpenAPI spec + Orval codegen config
 │   ├── api-client-react/   # Generated React Query hooks
@@ -34,6 +35,36 @@ artifacts-monorepo/
 ├── tsconfig.json           # Root TS project references
 └── package.json            # Root package with hoisted devDeps
 ```
+
+## Portfolio Artifact (`artifacts/portfolio`)
+
+Client-facing portfolio for Mudassir Ashraf — Flutter & Android developer.
+
+### Design System
+- **Fonts**: Plus Jakarta Sans (headings) + DM Sans (body) — Google Fonts
+- **Accent**: #1B2B5E (deep navy)
+- **Success green**: #0EA66B — badges only
+- **Background**: #FFFFFF alternating with #F7F8FA
+- **Text**: #0F1117 headings · #4B5563 body · #9CA3AF captions
+
+### Animations
+- **GSAP** (3.12.5) + ScrollTrigger for scroll reveals and hero text
+- **Swiper.js** (v11) for project screenshot carousel
+- **Lenis** smooth scroll
+- All loaded via CDN
+
+### Sections
+1. Nav — sticky, scroll-aware hide/show
+2. Hero — 2-col, phone mockup, stats, CTAs
+3. Services — 6 cards with hidden tech toggle
+4. Process — 4-step numbered flow
+5. Projects — Nova Solar Weather (Swiper carousel), REST API card (terminal animation), CTA card
+6. Contact — split form with WhatsApp + email buttons
+7. Footer CTA — navy background
+8. Footer — dark
+
+### No backend needed
+This is a purely static frontend — no API calls, form submits go via mailto.
 
 ## TypeScript & Composite Projects
 
