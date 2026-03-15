@@ -539,26 +539,97 @@
                 });
             });
 
-            // Mouse tracking spotlight effect
+            // Donut cursor effect
+            const cursor = document.createElement('div');
+            const cursorInner = document.createElement('div');
+            
+            cursor.style.cssText = `
+                position: fixed;
+                width: 30px;
+                height: 30px;
+                border: 2px solid #1B2B5E;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                left: 0;
+                top: 0;
+                transform: translate(-50%, -50%);
+                transition: opacity 0.3s ease;
+            `;
+            
+            cursorInner.style.cssText = `
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                background: #1B2B5E;
+                border-radius: 50%;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            `;
+            
+            cursor.appendChild(cursorInner);
+            document.body.appendChild(cursor);
+            
+            // Hide default cursor
+            document.body.style.cursor = 'none';
+
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Smooth cursor following
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.2;
+                cursorY += (mouseY - cursorY) * 0.2;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Cursor size change on interactive elements
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.matches('a, button, .btn-primary, .btn-outline, input, textarea, select')) {
+                    cursor.style.width = '40px';
+                    cursor.style.height = '40px';
+                    cursor.style.borderWidth = '2.5px';
+                    cursorInner.style.width = '6px';
+                    cursorInner.style.height = '6px';
+                }
+            });
+
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.matches('a, button, .btn-primary, .btn-outline, input, textarea, select')) {
+                    cursor.style.width = '30px';
+                    cursor.style.height = '30px';
+                    cursor.style.borderWidth = '2px';
+                    cursorInner.style.width = '8px';
+                    cursorInner.style.height = '8px';
+                }
+            });
+
+            // Spotlight effect on movement
             const spotlight = document.createElement('div');
             spotlight.style.cssText = `
                 position: fixed;
                 width: 300px;
                 height: 300px;
-                background: radial-gradient(circle, rgba(27, 43, 94, 0.15) 0%, transparent 70%);
+                background: radial-gradient(circle, rgba(27, 43, 94, 0.08) 0%, transparent 70%);
                 border-radius: 50%;
                 pointer-events: none;
                 z-index: 1;
                 filter: blur(40px);
             `;
             document.body.appendChild(spotlight);
-
-            let mouseX = 0, mouseY = 0;
+            
             document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                spotlight.style.left = (mouseX - 150) + 'px';
-                spotlight.style.top = (mouseY - 150) + 'px';
+                spotlight.style.left = (e.clientX - 150) + 'px';
+                spotlight.style.top = (e.clientY - 150) + 'px';
             });
 
             // Interactive card tilt on mouse over
