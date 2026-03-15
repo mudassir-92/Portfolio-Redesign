@@ -55,7 +55,7 @@
                     </h1>
                     <p class="hero-sub" style="animation:fadeUp 0.5s 0.16s ease both">
                         I'm <strong>Mudassir Ashraf</strong> — a <strong>Mobile App Developer</strong> from Lahore.
-                        From your idea to a <strong>live app on the Play Store</strong> — I handle everything.
+                        From your idea to a <strong><span class="highlight-text">live app on the Play Store</span></strong> — I handle everything.
                     </p>
                     <div class="hero-btns" style="animation:fadeUp 0.5s 0.22s ease both">
                         <a href="#contact" class="btn-primary">Start Your App →</a>
@@ -219,7 +219,7 @@
         <div class="container">
             <div class="section-header reveal">
                 <div class="ey">How It Works</div>
-                <h2 class="section-title">From Idea to <span>App Store</span></h2>
+                <h2 class="section-title"><span class="highlight-title">From Idea to</span> <span class="highlight-primary">App Store</span></h2>
                 <p class="section-sub">A clear, transparent process so you always know what's happening with your
                     project.</p>
             </div>
@@ -555,6 +555,8 @@
                 top: 0;
                 transform: translate(-50%, -50%);
                 transition: opacity 0.3s ease;
+                box-shadow: inset 0 0 0 4px rgba(27, 43, 94, 0.1);
+                animation: donutSpin 3s linear infinite;
             `;
             
             cursorInner.style.cssText = `
@@ -566,6 +568,7 @@
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%, -50%);
+                animation: pulseDot 1.5s ease-in-out infinite;
             `;
             
             cursor.appendChild(cursorInner);
@@ -688,6 +691,26 @@
             to {
                 transform: scale(4);
                 opacity: 0;
+            }
+        }
+        
+        @keyframes donutSpin {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        
+        @keyframes pulseDot {
+            0%, 100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(0.8);
             }
         }
     </style>
